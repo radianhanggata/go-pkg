@@ -11,8 +11,6 @@ import (
 	"github.com/radianhanggata/go-pkg/iconst"
 )
 
-type vaaal validator.ValidationErrors
-
 type CustomValidator struct {
 	Validator *validator.Validate
 }
