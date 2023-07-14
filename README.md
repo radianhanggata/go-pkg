@@ -13,3 +13,7 @@
 # go get github.com/spf13/viper
 # go get github.com/go-playground/validator
 # go get github.com/iancoleman/strcase
+# git config --global url."git@github.com:".insteadOf "https://github.com/"
+# git tag v0.1.0
+# git push origin v0.1.0
+# GOPROXY=proxy.golang.org go list -m github.com/radianhanggata/go-pkg@v0.1.0
