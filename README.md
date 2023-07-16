@@ -17,3 +17,6 @@
 # git tag v0.1.0
 # git push origin v0.1.0
 # GOPROXY=proxy.golang.org go list -m github.com/radianhanggata/go-pkg@v0.1.0
+# go get github.com/dgrijalva/jwt-go
+# go get github.com/go-redis/redis/v7
+# go get github.com/twinj/uuid

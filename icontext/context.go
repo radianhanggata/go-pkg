@@ -33,7 +33,7 @@ func (c *context) Fail(err error) error {
 		return c.failValidate(err)
 	default:
 		response := extractResponse(err)
-		return c.JSON(response.HC, response)
+		return c.JSON(response.HttpStatus, response)
 	}
 }
 
@@ -51,13 +51,13 @@ func (c *context) failBind(err error) error {
 	he := err.(*echo.HTTPError)
 
 	data := iconst.Response{
-		SC:      iconst.ErrorRequestBindCode,
+		Code:    iconst.ErrorRequestBindCode,
 		Message: fmt.Sprintf("%v", he.Message),
 	}
 
 	response.Data = data
 
-	return c.JSON(response.HC, response)
+	return c.JSON(response.HttpStatus, response)
 }
 
 func (c *context) failValidate(err error) error {
@@ -65,5 +65,5 @@ func (c *context) failValidate(err error) error {
 	response := iconst.ErrorBadRequest
 	response.Data = vemap
 
-	return c.JSON(response.HC, response)
+	return c.JSON(response.HttpStatus, response)
 }
