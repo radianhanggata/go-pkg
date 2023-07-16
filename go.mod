@@ -3,11 +3,14 @@ module github.com/radianhanggata/go-pkg
 go 1.18
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-playground/validator v9.31.0+incompatible
+	github.com/go-redis/redis/v7 v7.4.1
 	github.com/iancoleman/strcase v0.3.0
 	github.com/jackc/pgx/v5 v5.4.2
 	github.com/labstack/echo/v4 v4.10.2
 	github.com/spf13/viper v1.16.0
+	github.com/twinj/uuid v1.0.0
 	gorm.io/driver/postgres v1.5.2
 	gorm.io/gorm v1.25.2
 )
@@ -27,6 +30,7 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/myesui/uuid v1.0.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
@@ -41,5 +45,6 @@ require (
 	golang.org/x/text v0.11.0 // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
+	gopkg.in/stretchr/testify.v1 v1.2.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

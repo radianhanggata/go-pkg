@@ -34,7 +34,7 @@ func getValidationErrors(err error) (sr iconst.Response) {
 	}
 
 	sr = iconst.Response{
-		SC:      iconst.ErrorRequestValidationCode,
+		Code:    iconst.ErrorRequestValidationCode,
 		Message: strings.Join(msg, ","),
 	}
 

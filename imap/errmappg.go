@@ -24,7 +24,7 @@ func (pg *Pg) Read(err error) error {
 
 	if err, ok := errMap[pgErr.Code]; ok {
 		err.Data = iconst.Response{
-			SC:      pgErr.Code,
+			Code:    pgErr.Code,
 			Message: pgErr.Detail,
 		}
 		return err

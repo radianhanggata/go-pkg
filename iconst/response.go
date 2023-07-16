@@ -1,28 +1,39 @@
 package iconst
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
 
 const ErrorRequestValidationCode = "01"
 const ErrorRequestBindCode = "02"
 
 type Response struct {
-	HC      int         `json:"-"`
-	SC      string      `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"`
+	HttpStatus int         `json:"-"`
+	Code       string      `json:"code"`
+	Message    string      `json:"message"`
+	Data       interface{} `json:"data,omitempty"`
 }
 
-func NewResponse(hc int, code, message string) *Response {
+func NewResponse(httpStatus int, code, message string) *Response {
 	return &Response{
-		HC:      hc,
-		SC:      code,
-		Message: message,
-		Data:    nil,
+		HttpStatus: httpStatus,
+		Code:       code,
+		Message:    message,
+		Data:       nil,
 	}
 }
 
 func (r *Response) Error() string {
-	return r.Message
+	return "unhandled error"
+}
+
+func (r *Response) ToHttpError() *echo.HTTPError {
+	return &echo.HTTPError{
+		Code:    r.HttpStatus,
+		Message: r,
+	}
 }
 
 var (
@@ -33,4 +44,5 @@ var (
 	ErrorDuplicate        = NewResponse(http.StatusFound, "302", "duplicate record")
 	ErrorInternalServer   = NewResponse(http.StatusInternalServerError, "500", "internal server error")
 	ErrorInvalidFieldType = NewResponse(http.StatusBadRequest, "400", "invalid field type")
+	ErrorUnauthorized     = NewResponse(http.StatusUnauthorized, "401", "unauthorized")
 )
