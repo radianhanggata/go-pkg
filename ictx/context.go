@@ -1,4 +1,4 @@
-package icontext
+package ictx
 
 import (
 	"fmt"
@@ -6,8 +6,6 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
-
-	"github.com/radianhanggata/go-pkg/iconst"
 )
 
 type context struct {
@@ -19,7 +17,7 @@ func New(ctx echo.Context) *context {
 }
 
 func (c *context) Success(data interface{}) error {
-	sr := iconst.Success
+	sr := Success
 	sr.Data = data
 
 	return c.JSON(http.StatusOK, sr)
@@ -41,17 +39,17 @@ func (c *context) Log(err error) {
 	c.Context.Logger().Errorf("error %s", err.Error())
 }
 
-func extractResponse(err interface{}) *iconst.Response {
-	return err.(*iconst.Response)
+func extractResponse(err interface{}) *Response {
+	return err.(*Response)
 }
 
 func (c *context) failBind(err error) error {
-	response := iconst.ErrorInvalidFieldType
+	response := ErrorInvalidFieldType
 
 	he := err.(*echo.HTTPError)
 
-	data := iconst.Response{
-		Code:    iconst.ErrorRequestBindCode,
+	data := Response{
+		Code:    ErrorRequestBindCode,
 		Message: fmt.Sprintf("%v", he.Message),
 	}
 
@@ -62,7 +60,7 @@ func (c *context) failBind(err error) error {
 
 func (c *context) failValidate(err error) error {
 	vemap := getValidationErrors(err)
-	response := iconst.ErrorBadRequest
+	response := ErrorBadRequest
 	response.Data = vemap
 
 	return c.JSON(response.HttpStatus, response)

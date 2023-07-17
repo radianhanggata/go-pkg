@@ -1,4 +1,4 @@
-package initializer
+package idb
 
 import (
 	"fmt"
@@ -6,9 +6,11 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	"github.com/radianhanggata/go-pkg/ictx"
 )
 
-func ConnectDB(ev *EV) (db *gorm.DB, err error) {
+func ConnectDB(ev *ictx.EV) (db *gorm.DB, err error) {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=%s",
 		ev.DBHost,
 		ev.DBUserName,

@@ -1,4 +1,4 @@
-package auth
+package iauth
 
 const (
 	grantTypeAccess  string = "access"
@@ -7,6 +7,6 @@ const (
 	keyAlg       = "alg"
 	keyExp       = "exp"
 	keyGrantType = "grant_type"
-	keyUserID    = "user_id"
+	keyValue     = "value"
 	keyUUID      = "uuid"
 )

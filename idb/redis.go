@@ -1,10 +1,12 @@
-package initializer
+package idb
 
 import (
 	"github.com/go-redis/redis/v7"
+
+	"github.com/radianhanggata/go-pkg/ictx"
 )
 
-func NewRedis(ev *EV) (client *redis.Client, err error) {
+func NewRedis(ev *ictx.EV) (client *redis.Client, err error) {
 	dsn := ev.RedisDSN
 	if len(dsn) == 0 {
 		dsn = "localhost:6379"

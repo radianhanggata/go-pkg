@@ -1,4 +1,4 @@
-package auth
+package iauth
 
 import (
 	"fmt"
@@ -7,26 +7,27 @@ import (
 	"github.com/twinj/uuid"
 )
 
-func generateToken(accessType string, userid uint, exp int64, envkey string) (td TokenDetails, err error) {
-	td = TokenDetails{
-		UUID:    uuid.NewV4().String(),
-		Expires: exp,
-	}
+func generateToken(accessType string, value string, exp int64, envkey string, meta *TokenMetadata) (et string, err error) {
+	uuid := uuid.NewV4().String()
 
 	atClaims := jwt.MapClaims{
-		keyUUID:      td.UUID,
-		keyUserID:    userid,
-		keyExp:       td.Expires,
+		keyUUID:      uuid,
+		keyValue:     value,
+		keyExp:       exp,
 		keyGrantType: accessType,
 	}
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	td.Token, err = at.SignedString([]byte(envkey))
+	et, err = at.SignedString([]byte(envkey))
 	if err != nil {
 		return
 	}
 
-	return td, nil
+	meta.UUID = uuid
+	meta.Expires = exp
+	meta.Value = value
+
+	return et, nil
 }
 
 func extractToken(ts, envkey string) (*jwt.Token, error) {
@@ -45,5 +46,15 @@ func extractToken(ts, envkey string) (*jwt.Token, error) {
 }
 
 func getTokenMapClaims(token *jwt.Token) jwt.MapClaims {
-	return token.Claims.(jwt.MapClaims)
+	claims := token.Claims.(jwt.MapClaims)
+	return claims
+}
+
+func extractError(err error) interface{} {
+	jwterr := err.(*jwt.ValidationError)
+	errdata := map[string]string{
+		"code":    fmt.Sprint(jwterr.Errors),
+		"message": jwterr.Error(),
+	}
+	return errdata
 }

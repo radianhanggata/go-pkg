@@ -1,4 +1,4 @@
-package initializer
+package ictx
 
 import "github.com/spf13/viper"
 

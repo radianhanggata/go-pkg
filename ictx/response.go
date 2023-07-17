@@ -1,4 +1,4 @@
-package iconst
+package ictx
 
 import (
 	"net/http"
@@ -36,13 +36,26 @@ func (r *Response) ToHttpError() *echo.HTTPError {
 	}
 }
 
+func (r *Response) Embed(data interface{}) *Response {
+	r.Data = data
+	return r
+}
+
 var (
-	Success               = NewResponse(http.StatusOK, "00", "success")
+	Success            = NewResponse(http.StatusOK, "00", "success")
+	ErrorUnauthorized  = NewResponse(http.StatusUnauthorized, "10", "authorization problem")
+	ErrorDBRecNotfound = NewResponse(http.StatusNoContent, "20", "record not found")
+	ErrorDBDuplicate   = NewResponse(http.StatusConflict, "21", "error duplicate")
+	ErrorDB            = NewResponse(http.StatusInternalServerError, "29", "database problem")
+	ErrorUnknown       = NewResponse(http.StatusInternalServerError, "99", "unhandled error")
+)
+
+var (
 	ErrorBadRequest       = NewResponse(http.StatusBadRequest, "400", "bad request")
-	ErrorInvalidEmail     = NewResponse(http.StatusBadRequest, "400", "invalid email format")
+	ErrorInvalidEmail     = NewResponse(http.StatusBadRequest, "400", "invalid email format") // move to usecase later
 	ErrorRecordNotFound   = NewResponse(http.StatusNotFound, "404", "record not found")
-	ErrorDuplicate        = NewResponse(http.StatusFound, "302", "duplicate record")
 	ErrorInternalServer   = NewResponse(http.StatusInternalServerError, "500", "internal server error")
 	ErrorInvalidFieldType = NewResponse(http.StatusBadRequest, "400", "invalid field type")
-	ErrorUnauthorized     = NewResponse(http.StatusUnauthorized, "401", "unauthorized")
+	// ErrorDuplicate        = NewResponse(http.StatusFound, "302", "duplicate record")
+
 )

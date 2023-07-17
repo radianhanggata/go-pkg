@@ -1,4 +1,4 @@
-package icontext
+package ictx
 
 import (
 	"errors"
@@ -7,8 +7,6 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/iancoleman/strcase"
-
-	"github.com/radianhanggata/go-pkg/iconst"
 )
 
 type CustomValidator struct {
@@ -24,7 +22,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 	return nil
 }
 
-func getValidationErrors(err error) (sr iconst.Response) {
+func getValidationErrors(err error) (sr Response) {
 	var ve validator.ValidationErrors
 	msg := make([]string, 0, len(ve))
 	if errors.As(err, &ve) {
@@ -33,8 +31,8 @@ func getValidationErrors(err error) (sr iconst.Response) {
 		}
 	}
 
-	sr = iconst.Response{
-		Code:    iconst.ErrorRequestValidationCode,
+	sr = Response{
+		Code:    ErrorRequestValidationCode,
 		Message: strings.Join(msg, ","),
 	}
 
